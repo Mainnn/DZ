@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.DTO.EmployeeDto;
+import com.example.demo.Entity.Employee;
 import com.example.demo.service.imp.serviceInterface.EmployeeService;
 import com.example.demo.service.imp.serviceInterface.EmployeeServiceImp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,7 @@ import java.util.UUID;
 
 @RestController("")
 public class UserController {
+    private final Logger logger= LoggerFactory.getLogger(UserController.class);
 
     private final EmployeeService employeeService;
 
@@ -21,8 +25,8 @@ public class UserController {
 
     @PostMapping("/employees")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UUID createUser(@RequestBody EmployeeDto user) {
-        return employeeService.create(user);
+    public UUID createEmployee(@RequestBody EmployeeDto employeeDto) {
+        return employeeService.create(employeeDto);
     }
 
     @PatchMapping("/employees/{id}/salary")
@@ -33,7 +37,7 @@ public class UserController {
 
     @GetMapping("/employees")
     @ResponseStatus(HttpStatus.OK)
-    public List<EmployeeDto> getAllUsers() {
+    public List<Employee> getAllUsers() {
         return employeeService.getAll();
     }
 

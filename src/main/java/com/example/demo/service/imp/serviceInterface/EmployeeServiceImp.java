@@ -28,12 +28,15 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Transactional
-    public UUID create(EmployeeDto userDto) {
-        if (userDto.getSalary() == null || userDto.getSalary().compareTo(BigDecimal.ZERO) < 0) {
+    public UUID create(EmployeeDto employeeDto) {
+        if (employeeDto.getSalary() == null || employeeDto.getSalary().compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Salary must be ≥ 0");
         }
+        if(employeeDto.getName() != null && !employeeDto.getName().isEmpty()){
+            throw new IllegalArgumentException("Name must not be empty");
+        }
 
-        Employee user = employeeMapper.toEntity(userDto);
+        Employee user = employeeMapper.toEntity(employeeDto);
         LOGGER.info("Creating user: " + user);
         return employeeRepo.save(user).getId();
     }
@@ -60,8 +63,8 @@ public class EmployeeServiceImp implements EmployeeService {
         return employeeMapper.toDto(entity);
     }
 
-    public List<EmployeeDto> getAll() {
-        List<EmployeeDto> employees = employeeMapper.toDto(employeeRepo.findAll());
+    public List<Employee> getAll() {
+        List<Employee> employees = employeeRepo.findAll();
         LOGGER.info("Get all employees, size = {}", employees.size());
         return employees;
     }

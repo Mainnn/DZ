@@ -1,9 +1,6 @@
 package com.example.demo.DTO;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -11,15 +8,12 @@ import java.math.BigDecimal;
 @Setter
 @EqualsAndHashCode
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmployeeDto {
 
     private String name;
 
     private BigDecimal salary;
-
-    public EmployeeDto(String name, BigDecimal salary) {
-        this.name = name;
-        this.salary = salary;
-    }
 
 }
