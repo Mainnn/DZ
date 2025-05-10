@@ -1,0 +1,27 @@
+Для запуска приложения надо выполнить несколько этапов.
+    1. выкачать сам сервис https://github.com/Mainnn/DZ.git
+    2. выкачать config-server https://github.com/Mainnn/config-server.git
+        выкачать в одну папку важно для docker-compose
+    3. запустить docker-compose
+
+    Примеры запросов:
+
+    create :
+        POST http://localhost:8081/employees
+        Content-Type: application/json
+
+        {
+          "name": "Peppa",
+          "salary": 100000
+        }
+    getAll:
+        GET http://localhost:8081/employees
+
+    updateSalary:
+       PATCH http://localhost:8081/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a/salary
+       Content-Type: application/json
+
+       32323
+
+    deleteEmployee:
+        DELETE http://localhost:8081/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a

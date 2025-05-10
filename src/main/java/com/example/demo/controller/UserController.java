@@ -33,7 +33,7 @@ public class UserController {
 
     @PatchMapping("/employees/{id}/salary")
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeDto updateUser(@PathVariable UUID id, @RequestBody BigDecimal salary) {
+    public EmployeeDto updateSalary(@PathVariable UUID id, @RequestBody BigDecimal salary) {
         return employeeService.updateSalary(id, salary);
     }
 
@@ -45,7 +45,7 @@ public class UserController {
 
     @DeleteMapping("/employees/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteUser(@PathVariable UUID id) {
+    public void deleteEmployee(@PathVariable UUID id) {
         employeeService.deleteById(id);
     }
 
