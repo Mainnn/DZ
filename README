@@ -3,6 +3,9 @@
     2. выкачать config-server https://github.com/Mainnn/config-server.git
         выкачать в одну папку важно для docker-compose
     3. запустить docker-compose
+        docker compose build
+         docker compose up --build
+
 
     Примеры запросов:
 
