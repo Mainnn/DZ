@@ -1,3 +1,4 @@
 databaseChangeLog:
   - include:
-      file: classpath:/db/changelog/changes/001-create-employee-table.sql
+      file: db/changelog/changes/001-create-employee-table.sql
+      relativeToChangelogFile: false

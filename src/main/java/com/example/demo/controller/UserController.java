@@ -4,6 +4,7 @@ import com.example.demo.DTO.EmployeeDto;
 import com.example.demo.Entity.Employee;
 import com.example.demo.service.imp.serviceInterface.EmployeeService;
 import com.example.demo.service.imp.serviceInterface.EmployeeServiceImp;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,8 @@ public class UserController {
 
     @PostMapping("/employees")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UUID createEmployee(@RequestBody EmployeeDto employeeDto) {
+    public UUID createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
+        logger.info("Creating employee with name: " + employeeDto.getName());
         return employeeService.create(employeeDto);
     }
 

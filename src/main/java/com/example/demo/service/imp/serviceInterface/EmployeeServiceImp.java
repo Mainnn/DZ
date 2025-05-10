@@ -32,7 +32,7 @@ public class EmployeeServiceImp implements EmployeeService {
         if (employeeDto.getSalary() == null || employeeDto.getSalary().compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Salary must be ≥ 0");
         }
-        if(employeeDto.getName() != null && !employeeDto.getName().isEmpty()){
+        if(employeeDto.getName() == null && employeeDto.getName().isEmpty()){
             throw new IllegalArgumentException("Name must not be empty");
         }
 
