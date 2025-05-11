@@ -1,7 +1,9 @@
 Для запуска приложения надо выполнить несколько этапов.
     1. выкачать сам сервис https://github.com/Mainnn/DZ.git
     2. выкачать config-server https://github.com/Mainnn/config-server.git
+    2. выкачать https://github.com/Mainnn/geteway-service.git
         выкачать в одну папку важно для docker-compose
+
     3. запустить docker-compose
         docker compose build
          docker compose up --build
@@ -10,7 +12,7 @@
     Примеры запросов:
 
     create :
-        POST http://localhost:8081/employees
+        POST http://localhost:8080/employees
         Content-Type: application/json
 
         {
@@ -18,13 +20,13 @@
           "salary": 100000
         }
     getAll:
-        GET http://localhost:8081/employees
+        GET http://localhost:8080/employees
 
     updateSalary:
-       PATCH http://localhost:8081/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a/salary
+       PATCH http://localhost:8080/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a/salary
        Content-Type: application/json
 
        32323
 
     deleteEmployee:
-        DELETE http://localhost:8081/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a
+        DELETE http://localhost:8080/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a

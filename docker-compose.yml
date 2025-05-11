@@ -1,9 +1,10 @@
 version: '3.9'
 
 services:
+
   config-server:
     build:
-      context: ../config-server
+      context: ../config-server    # папка с Config Server
       dockerfile: Dockerfile
     image: config-server:latest
     ports:
@@ -11,9 +12,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL","curl --fail http://localhost:8888/actuator/health"]
       interval: 5s
-      timeout: 3s
-      retries: 5
-      start_period: 20s
+      timeout: 5s
+      retries: 20
 
   db:
     image: postgres:15
@@ -26,6 +26,11 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "demo" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   employee-service:
     build:
@@ -35,14 +40,40 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      config-server:
-        condition: service_healthy
-      db:
-        condition: service_started
+      - config-server
+      - db
     environment:
-      SPRING_CONFIG_IMPORT:    "configserver:http://config-server:8888"
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888"
       SPRING_CLOUD_CONFIG_URI: "http://config-server:8888"
-      SPRING_PROFILES_ACTIVE:  docker
+
+  gateway-service:
+    build:
+      context: ../gateway-service    # путь к вашему gateway-проекту
+      dockerfile: Dockerfile
+    image: gateway-service:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+      - employee-service
+    environment:
+      SPRING_APPLICATION_NAME: gateway-service
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+    command: >
+      sh -c '
+        until curl -sSf http://config-server:8888/actuator/health; do
+          echo "waiting for config-server...";
+          sleep 2;
+        done &&
+        java -jar /app.jar
+      '
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8080/actuator/health" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 20s
 
 volumes:
   db-data:
