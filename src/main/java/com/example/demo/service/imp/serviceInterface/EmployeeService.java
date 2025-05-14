@@ -11,6 +11,6 @@ public interface EmployeeService {
 
     UUID create(EmployeeDto userDto);
     EmployeeDto updateSalary(UUID id, BigDecimal salary);
-    List<Employee> getAll();
+    List<EmployeeDto> getAll();
     void deleteById(UUID id);
 }

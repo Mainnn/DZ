@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.DTO.EmployeeDto;
-import com.example.demo.Entity.Employee;
+import com.example.demo.DTO.SalaryUpdateDto;
 import com.example.demo.service.imp.serviceInterface.EmployeeService;
 import com.example.demo.service.imp.serviceInterface.EmployeeServiceImp;
 import jakarta.validation.Valid;
@@ -10,13 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 @RestController("")
 public class UserController {
-    private final Logger logger= LoggerFactory.getLogger(UserController.class);
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final EmployeeService employeeService;
 
@@ -33,13 +32,13 @@ public class UserController {
 
     @PatchMapping("/employees/{id}/salary")
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeDto updateSalary(@PathVariable UUID id, @RequestBody BigDecimal salary) {
-        return employeeService.updateSalary(id, salary);
+    public EmployeeDto updateSalary(@PathVariable UUID id, @Valid @RequestBody SalaryUpdateDto salary) {
+        return employeeService.updateSalary(id, salary.getSalary());
     }
 
     @GetMapping("/employees")
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> getAllUsers() {
+    public List<EmployeeDto> getAllUsers() {
         return employeeService.getAll();
     }
 

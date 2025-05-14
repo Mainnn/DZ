@@ -22,11 +22,12 @@
     getAll:
         GET http://localhost:8080/employees
 
-    updateSalary:
-       PATCH http://localhost:8080/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a/salary
-       Content-Type: application/json
+    PATCH http://localhost:8081/employees/5f443f6c-21bf-4ab3-ae5a-a104a89e265f/salary
+    Content-Type: application/json
 
-       32323
+    {
+      "salary": 1000
+    }
 
     deleteEmployee:
         DELETE http://localhost:8080/employees/d2063a6d-62bc-4ca9-bc25-1e80f36d1d5a
